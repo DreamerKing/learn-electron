@@ -1,21 +1,34 @@
-'use strict';
+const { app, BrowserWindow, ipcMain } = require('electron');
+const { join } = require('path');
 
-const electron = require('electron');
 
-const app = electron.app;
-const BrowserWindow = electron.BrowserWindow;
-let mainWindow = null;
+const createWindow = () => {
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: join(__dirname, 'preload.js')
+        }
+    })
+    win.loadFile('index.html')
+}
 
-app.on('ready', () => {
-    mainWindow = new BrowserWindow();
-    mainWindow.loadURL(`file://${__dirname}/index.html`);
-    mainWindow.on('closed', () => {
-        mainWindow = null;
+// 使用wenReady() 代替 on('ready')
+app.whenReady().then(() => {
+    createWindow();
+    ipcMain.handle('ping', () => {
+        return 'pong'
+    })
+    app.on('activate', () => {
+        if (!BrowserWindow.getAllWindows().length) {
+            createWindow()
+        }
     })
 });
-
-app.on("window-all-closed", () => {
-    if(process.platform !== "darwin") {
-        app.quit();
+app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+        app.quit()
     }
-})
+}).on('error', (e) => {
+    console.error(e);
+});

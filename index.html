@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <style>
         body {
             background-image: linear-gradient(45deg, #EAD790 0%, #EF8C53 100%);
@@ -28,16 +28,13 @@
         button:hover {
             background: rgba(0, 0, 0, 0.30);
         }
-    </style> -->
-    <title>File Explorer</title>
+    </style>
+    <title>Electron</title>
 </head>
 <body>
-    <h1></h1>
-    <!-- <button onclick="sayHello()">Say Hello</button>
-   <script>
-       function sayHello(){
-           alert("Hello!");
-       }
-    </script>  -->
+    我们正在使用 Node.js <span id="node-version"></span>,
+    Chromium <span id="chrome-version"></span>,
+    和 Electron <span id="electron-version"></span>.
+    <script src="./renderer.js"></script>
 </body>
 </html>
